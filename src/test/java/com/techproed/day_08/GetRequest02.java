@@ -8,7 +8,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.*;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -38,40 +38,53 @@ public class GetRequest02 extends DummyRestAPIExampleTestBase {
 
         Response rp=given().accept("application/json").spec(spec02).when().get("/{p1}");
 
-
-        rp.then().assertThat().statusCode(200).body("data.employee_name[4]",
-                equalTo("Airi Satou"),
-                "data.id", hasSize(24));
+        DummyRestAPIExampleData obje=new DummyRestAPIExampleData();
 
         JsonPath js=rp.jsonPath();
 
-       int a= Integer.parseInt(js.getString("data.employee_salary[-1]"));
-       int b= Integer.parseInt(js.getString("data.employee_salary[-2]"));
+        int sonuncuCalisanMaas=js.getInt("data[-1].employee_salary");
+        int sondanOncekiCalisanMaas=js.getInt("data[-2].employee_salary");
 
-       Assert.assertTrue(a+b==106450);
-       Assert.assertTrue(js.getString("data.findAll{it.employee_age==40,21,19}."));
-
+       List<Integer> yaslar=js.getList("data.employee_age");
 
 
+        Set<Integer> actualYaslar=new HashSet<>();
 
 
+       for (Integer each : yaslar
+                )
+        { if(each==19){actualYaslar.add(each);}
+         if(each==21){actualYaslar.add(each);}
+        if(each==40){actualYaslar.add(each);}
+
+        }
 
 
+        String besinciCalisan=js.getString("data.employee_name[4]");
+        Map<String,Object>id=
+            js.getMap("data[10]");
 
 
-
-        DummyRestAPIExampleData obje=new DummyRestAPIExampleData();
 
         Map<String,Object> expectedData=obje.expectedData();
 
-
-
-        Map<String,Object> actualData=rp.as(Map.class);
+        Map<String,Object>actualData=new HashMap<>();
 
         actualData.put("statusCode",rp.statusCode());
+        actualData.put("calisanSayisi",js.getList("data.id").size());
+        actualData.put("sonIkiCalisaninMaasToplami",(sondanOncekiCalisanMaas+sonuncuCalisanMaas));
+        actualData.put("arananYaslar",actualYaslar);
+        actualData.put("besinciCalisan",besinciCalisan);
+        actualData.put("id[10]",id);
+
 
 
         Assert.assertEquals(expectedData.get("statusCode"),actualData.get("statusCode"));
+        Assert.assertEquals(expectedData.get("calisanSayisi"),actualData.get("calisanSayisi"));
+        Assert.assertEquals(expectedData.get("sonIkiCalisaninMaasToplami"),actualData.get("sonIkiCalisaninMaasToplami"));
+        Assert.assertEquals(expectedData.get("arananYaslar"),actualData.get("arananYaslar"));
+        Assert.assertEquals(expectedData.get("besinciCalisan"),actualData.get("besinciCalisan"));
+        Assert.assertEquals(expectedData.get("id[10]"),actualData.get("id[10]"));
 
 
     }

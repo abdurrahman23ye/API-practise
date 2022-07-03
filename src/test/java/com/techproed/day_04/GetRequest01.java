@@ -2,28 +2,40 @@ package com.techproed.day_04;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.concurrent.TimeUnit;
+
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class GetRequest01 {
 
     @Test
     public void test01() {
 
-        //1. url belirle(endpoint)
 
-        String url = "https://restful-booker.herokuapp.com/booking/3";
+        String url = "https://restful-booker.herokuapp.com/booking/17379";
 
-        // 2. expected result hazırla
-
-        // 3. request gönder
 
       Response response= given().
               accept("application/json").
               when().
               get(url);
+
+      response.then().assertThat().statusCode(200).
+              contentType(ContentType.JSON).
+              header("Server", equalTo("Cowboy"));
+
+
+
+      Assert.assertTrue(response.getTime()<5000);
+
+
+
+        //Header'da statusline yok.
 
         //4. actual result hazırla(response)
 
@@ -32,7 +44,7 @@ public class GetRequest01 {
 
 
         // 5. doğrulama yap)
-
+/*
         System.out.println(response.statusCode());
         System.out.println(response.getContentType());
         System.out.println(response.getStatusLine());
@@ -48,6 +60,8 @@ public class GetRequest01 {
                 statusCode(200).
                 contentType(ContentType.JSON).
                 statusLine("HTTP/1.1 200 OK");
+
+ */
 
 
     }
