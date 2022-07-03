@@ -6,30 +6,37 @@ import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class PostRequest01 extends DummyRestAPIExampleTestBase {
+public class PostRequest02 extends DummyRestAPIExampleTestBase {
 
      /*
-    http://dummy.restapiexample.com/api/v1/create url ine, Request Body olarak
-{
- "name":"Ahmet Aksoy",
- "salary":"1000",
- "age":"18",
-  }
-gönderildiğinde,Status kodun 200 olduğunu ve dönen response body nin ,
-{
- "status": "success",
- "data": {
- “id”:…
- },
- "message": "Successfully! Record has been added."
+    https://restful-booker.herokuapp.com/booking
+    { "firstname": "Selim",
+               "lastname": "Ak",
+               "totalprice": 11111,
+               "depositpaid": true,
+               "bookingdates": {
+                   "checkin": "2020-09-09",
+                   "checkout": "2020-09-21"
+                }
  }
+ gönderildiğinde, Status kodun 200 olduğunu ve dönen response body nin ,
+ "booking": {
+         "firstname": " Selim ",
+         "lastname": " Ak ",
+         "totalprice":  11111,
+         "depositpaid": true,
+         "bookingdates": {
+             "checkin": "2020-09-01",
+              "checkout": " 2020-09-21”
+         },
+        }
 olduğunu test edin
      */
+
 
     @Test
     public void test01() {
