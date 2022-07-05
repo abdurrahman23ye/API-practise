@@ -13,13 +13,15 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 public class GetRequest02TestBase extends JsonPlaceHolderTestBase {
+/* deneme için bunu bozdum
+
 
     @Test
     public void test01() {
 
         JsonPlaceHolderTestData expd=new JsonPlaceHolderTestData();
 
-        HashMap<String,Object> expectedData= (HashMap<String, Object>) expd.setUpTestData();
+       // HashMap<String,Object> expectedData= expd.setUpPutData();
 
         spec01.pathParams("p1", "todos", "p2", 2);
 
@@ -70,4 +72,6 @@ public class GetRequest02TestBase extends JsonPlaceHolderTestBase {
 
 
     }
+
+ */
 }
