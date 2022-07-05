@@ -1,5 +1,6 @@
 package com.techproed.pojoAPITests;
 
+import com.google.gson.Gson;
 import com.techproed.pojos.PojoGetRequest1;
 import com.techproed.pojos.PojoGetRequest2;
 import com.techproed.testBase.DummyRestAPIExampleTestBase;
@@ -10,7 +11,7 @@ import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 
-public class GetRequestPojo extends DummyRestAPIExampleTestBase {
+public class GetRequestPojoAndSerilization extends DummyRestAPIExampleTestBase {
 
         /*
 GET Request to the URL http://dummy.restapiexample.com/api/v1/employee/1
@@ -42,7 +43,8 @@ GET Request to the URL http://dummy.restapiexample.com/api/v1/employee/1
 
 
 
-          PojoGetRequest2 actualData=rp.as(PojoGetRequest2.class);
+
+        PojoGetRequest2 actualData=rp.as(PojoGetRequest2.class);
 
 
 
@@ -57,6 +59,15 @@ GET Request to the URL http://dummy.restapiexample.com/api/v1/employee/1
         Assert.assertEquals(expectedRequest.getData().getEmployee_name(),actualData.getData().getEmployee_name());
         Assert.assertEquals(expectedRequest.getData().getProfile_image(),actualData.getData().getProfile_image());
         Assert.assertEquals(200,rp.statusCode());
+
+        //****************************************************************************************************
+        //****************************************************************************************************
+        //****************************************************************************************************
+        //****************************************************************************************************
+
+        Gson gson=new Gson();
+        String jsonFromJava=gson.toJson(actualData);
+        System.out.println("jsonFromJava = " + jsonFromJava);
 
     }
 
