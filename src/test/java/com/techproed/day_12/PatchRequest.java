@@ -32,6 +32,11 @@ Dönen response un status kodunun 200 ve body kısmının aşağıdaki gibi oldu
 
         spec01.pathParams("p1","todos","p2",198);
 
+        https://www.facebook.com/search/people/?q=yegen%20oyun%20%C3%A7ok%20b%C3%BCy%C3%BCk
+
+        spec01.pathParams("p1","search","p2","people").
+                queryParam("q","yegen oyun coğ büyük diyen dayi");
+
         PatchRequestData obj=new PatchRequestData();
 
         JSONObject request2=obj.request2();
