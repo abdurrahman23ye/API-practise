@@ -67,6 +67,8 @@ Dönen response un
 
         List<String> emNameList=jp.getList("data.findAll{it.employee_salary>350000}.employee_name");
 
+        //data ve employee sorudan geldi. Filtre icin findAll{it.employee_salary>350000} yapısını kullanıyoruz.
+
         System.out.println("emNameList = " + emNameList);
 
         Assert.assertTrue(emNameList.contains("Charde Marshall"));
